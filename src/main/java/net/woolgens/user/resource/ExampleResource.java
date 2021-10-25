@@ -1,4 +1,4 @@
-package net.woolgens.scaffold.resource;
+package net.woolgens.user.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

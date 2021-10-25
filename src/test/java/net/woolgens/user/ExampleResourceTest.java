@@ -1,4 +1,4 @@
-package net.woolgens.scaffold;
+package net.woolgens.user;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
