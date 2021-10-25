@@ -16,6 +16,11 @@ steps:
           username: woolgens-default
       serverSecrets:
         from_secret: MAVEN_SERVER_SECRETS
+  - name: ping mongodb
+    image: mongo:4
+    commands:
+      - sleep 5
+      - mongo --host mongo --eval "db.version()"
   - name: testing
     image: maven
     depends_on: [settings]
@@ -25,4 +30,5 @@ steps:
 services:
   - name: mongo
     image: mongo:4
-    command: [ --smallfiles ]
+    ports:
+      - 27017
