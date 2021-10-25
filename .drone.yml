@@ -21,3 +21,8 @@ steps:
     depends_on: [settings]
     commands:
       - mvn -U test -s settings.xml
+
+services:
+  - name: mongo
+    image: mongo:4
+    command: [ --smallfiles ]
