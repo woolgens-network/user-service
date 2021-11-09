@@ -1,4 +1,4 @@
-package net.woolgens.user.exception;
+package net.woolgens.user.exception.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

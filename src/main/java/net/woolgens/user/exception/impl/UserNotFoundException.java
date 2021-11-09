@@ -1,4 +1,4 @@
-package net.woolgens.user.exception;
+package net.woolgens.user.exception.impl;
 
 /**
  * Copyright (c) Maga, All Rights Reserved

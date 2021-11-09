@@ -1,6 +1,6 @@
 package net.woolgens.user.resource;
 
-import net.woolgens.user.exception.UserNotFoundException;
+import net.woolgens.user.exception.impl.UserNotFoundException;
 import net.woolgens.user.model.User;
 import net.woolgens.user.repository.UserRepository;
 
