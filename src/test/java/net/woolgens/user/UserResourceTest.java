@@ -3,6 +3,7 @@ package net.woolgens.user;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import net.woolgens.user.auth.AuthWrapper;
 import net.woolgens.user.model.User;
 import net.woolgens.user.repository.UserRepository;
 import net.woolgens.user.resource.UserResource;
@@ -21,6 +22,11 @@ import static org.hamcrest.CoreMatchers.is;
 public class UserResourceTest {
 
     @Inject
+    AuthWrapper authWrapper;
+
+    String token;
+
+    @Inject
     UserRepository repository;
     User user;
 
@@ -28,12 +34,16 @@ public class UserResourceTest {
     public void setup() {
         user = new User(UUID.randomUUID().toString());
         repository.persist(user);
+        if(token == null) {
+            token = authWrapper.getBootstrap().getProvider().generateToken("Test", "Admin", 5);
+        }
     }
 
 
     @Test
     public void testGetEndpoint() {
         given()
+                .header("Authorization", "Bearer " + token)
                 .when().get("/" + user.getUuid())
                 .then()
                 .statusCode(200)
@@ -46,6 +56,7 @@ public class UserResourceTest {
         User newUser = new User(uuid);
 
         given().body(newUser).contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
                 .when().post()
                 .then()
                 .statusCode(200)
@@ -55,6 +66,7 @@ public class UserResourceTest {
     @Test
     public void testDeleteEndpoint() {
         given()
+                .header("Authorization", "Bearer " + token)
                 .when().delete("/" + user.getUuid())
                 .then()
                 .statusCode(200);
