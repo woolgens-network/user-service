@@ -4,6 +4,7 @@ import net.woolgens.user.exception.impl.UserNotFoundException;
 import net.woolgens.user.model.User;
 import net.woolgens.user.repository.UserRepository;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.List;
@@ -16,12 +17,14 @@ public class UserResource {
     UserRepository repository;
 
     @GET
+    @RolesAllowed("Admin")
     public List<User> getAll() {
         return repository.listAll();
     }
 
     @GET
     @Path("{uuid}")
+    @RolesAllowed("Admin")
     public User get(@PathParam("uuid") String uuid) throws UserNotFoundException {
         Optional<User> optional = repository.findByIdOptional(uuid);
         if(!optional.isPresent()) {
@@ -31,6 +34,7 @@ public class UserResource {
     }
 
     @POST
+    @RolesAllowed("Admin")
     public User post(User user) {
         repository.persistOrUpdate(user);
         return user;
@@ -38,6 +42,7 @@ public class UserResource {
 
     @DELETE
     @Path("{uuid}")
+    @RolesAllowed("Admin")
     public boolean delete(@PathParam("uuid") String uuid) {
         return repository.deleteById(uuid);
     }
