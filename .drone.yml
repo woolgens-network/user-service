@@ -18,6 +18,7 @@ steps:
         from_secret: MAVEN_SERVER_SECRETS
   - name: test mongo connection
     image: mongo:4
+    depends_on: [mongo]
     commands:
       - sleep 5
       - mongo --host mongo --eval "db.version()"
