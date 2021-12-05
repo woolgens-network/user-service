@@ -13,5 +13,6 @@ import java.util.Map;
 @Data
 public class Season {
 
+    private double balance;
     private Map<String, Long> stats;
 }
