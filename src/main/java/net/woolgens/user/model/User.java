@@ -23,6 +23,10 @@ public class User {
     private String name;
 
     //----------------------------------------
+    private String land;
+    //----------------------------------------
+
+    //----------------------------------------
     // Global
     private long joined;
     private Map<String, Long> stats;
