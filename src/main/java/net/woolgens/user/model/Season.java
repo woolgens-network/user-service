@@ -18,7 +18,7 @@ public class Season {
     private int level;
     private long exp;
 
-    private Map<String, Long> quests;
+    private Map<String, Map<String, Long>> quests;
     private Map<String, Long> stats;
     private Map<String, Integer> crates;
 }
