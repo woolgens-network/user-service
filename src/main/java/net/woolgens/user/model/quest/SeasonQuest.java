@@ -1,9 +1,8 @@
-package net.woolgens.user.model;
+package net.woolgens.user.model.quest;
 
 import lombok.Data;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Copyright (c) Maga, All Rights Reserved
@@ -14,6 +13,6 @@ import java.util.Set;
 @Data
 public class SeasonQuest {
 
-    private Map<String, Map<String, Long>> selected;
-    private Set<String> finished;
+    private Map<String, Map<String, SeasonQuestSelect>> selected;
+    private Map<String, Long> finished;
 }
