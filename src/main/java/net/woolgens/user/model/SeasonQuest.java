@@ -3,6 +3,7 @@ package net.woolgens.user.model;
 import lombok.Data;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright (c) Maga, All Rights Reserved
@@ -11,14 +12,8 @@ import java.util.Map;
  * Written by Maga
  **/
 @Data
-public class Season {
+public class SeasonQuest {
 
-    private double balance;
-
-    private int level;
-    private long exp;
-
-    private SeasonQuest quests;
-    private Map<String, Long> stats;
-    private Map<String, Integer> crates;
+    private Map<String, Map<String, Long>> selected;
+    private Set<String> finished;
 }
