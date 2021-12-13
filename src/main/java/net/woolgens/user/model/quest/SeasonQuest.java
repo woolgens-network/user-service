@@ -13,6 +13,6 @@ import java.util.Map;
 @Data
 public class SeasonQuest {
 
-    private Map<String, Map<String, SeasonQuestSelect>> selected;
+    private Map<String, SeasonQuestSelect> selected;
     private Map<String, Long> finished;
 }

@@ -2,6 +2,8 @@ package net.woolgens.user.model.quest;
 
 import lombok.Data;
 
+import java.util.Map;
+
 
 /**
  * Copyright (c) Maga, All Rights Reserved
@@ -12,6 +14,6 @@ import lombok.Data;
 @Data
 public class SeasonQuestSelect {
 
-    private long progress;
+    private Map<String, Long> objectives;
     private long timestamp;
 }
