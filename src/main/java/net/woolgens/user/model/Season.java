@@ -2,6 +2,7 @@ package net.woolgens.user.model;
 
 import lombok.Data;
 import net.woolgens.user.model.quest.SeasonQuest;
+import net.woolgens.user.model.skills.Skills;
 
 import java.util.Map;
 
@@ -20,7 +21,9 @@ public class Season {
     private long exp;
 
     private SeasonQuest quests;
+    private Skills skills;
     private Map<String, Long> stats;
     private Map<String, Integer> crates;
     private Map<String, Object> extensions;
+
 }
