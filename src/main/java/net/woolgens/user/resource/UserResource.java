@@ -18,7 +18,6 @@ public class UserResource {
     UserRepository repository;
 
     @GET
-    @RolesAllowed("Admin")
     public List<User> getAll(@QueryParam("sorted") String sorted) {
         if(sorted != null) {
             List<User> list = repository.listAll(Sort.descending(sorted));
@@ -31,7 +30,6 @@ public class UserResource {
 
     @GET
     @Path("{uuid}")
-    @RolesAllowed("Admin")
     public User get(@PathParam("uuid") String uuid) throws UserNotFoundException {
         Optional<User> optional = repository.findByIdOptional(uuid);
         if(!optional.isPresent()) {
