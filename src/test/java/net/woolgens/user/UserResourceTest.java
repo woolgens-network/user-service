@@ -63,7 +63,7 @@ public class UserResourceTest {
             repository.persist(user);
         }
         given()
-                .when().get("/?sorted=seasons.1.level" )
+                .when().get("/?sorted=seasons.1.level&limit=2" )
                 .then()
                 .statusCode(200)
                 .body("isEmpty()", is(false));

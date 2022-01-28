@@ -1,5 +1,7 @@
 package net.woolgens.user.resource;
 
+import io.quarkus.mongodb.panache.PanacheQuery;
+import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
 import net.woolgens.user.exception.impl.UserNotFoundException;
 import net.woolgens.user.model.User;
@@ -18,13 +20,25 @@ public class UserResource {
     UserRepository repository;
 
     @GET
-    public List<User> getAll(@QueryParam("sorted") String sorted) {
+    public List<User> getAll(@QueryParam("sorted") String sorted,
+                             @QueryParam("pageindex") String pageIndex, @QueryParam("pagesize") String pageSize) {
         if(sorted != null) {
-            List<User> list = repository.listAll(Sort.descending(sorted));
-            System.out.println(list);
+            PanacheQuery<User> query = repository.findAll(Sort.descending(sorted));
+            if(pageIndex != null && pageSize != null) {
+                try {
+                    query.page(Integer.valueOf(pageIndex), Integer.valueOf(pageSize));
+                }catch (NumberFormatException ex) {}
+            }
+            List<User> list = query.list();
             return list;
         }
         return repository.listAll();
+    }
+
+    @GET
+    @Path("/count")
+    public UserCountResponse count() {
+        return new UserCountResponse(repository.findAll().pageCount(), repository.count());
     }
 
 
