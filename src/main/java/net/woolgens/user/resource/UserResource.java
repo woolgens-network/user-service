@@ -1,5 +1,6 @@
 package net.woolgens.user.resource;
 
+import io.quarkus.panache.common.Sort;
 import net.woolgens.user.exception.impl.UserNotFoundException;
 import net.woolgens.user.model.User;
 import net.woolgens.user.repository.UserRepository;
@@ -18,9 +19,15 @@ public class UserResource {
 
     @GET
     @RolesAllowed("Admin")
-    public List<User> getAll() {
+    public List<User> getAll(@QueryParam("sorted") String sorted) {
+        if(sorted != null) {
+            List<User> list = repository.listAll(Sort.descending(sorted));
+            System.out.println(list);
+            return list;
+        }
         return repository.listAll();
     }
+
 
     @GET
     @Path("{uuid}")
