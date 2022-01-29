@@ -36,7 +36,7 @@ public class UserResource {
     }
 
     @GET
-    @Path("/count")
+    @Path("count")
     public UserCountResponse count() {
         return new UserCountResponse(repository.findAll().pageCount(), repository.count());
     }
