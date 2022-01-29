@@ -10,6 +10,7 @@ import net.woolgens.user.repository.UserRepository;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +21,15 @@ public class UserResource {
     UserRepository repository;
 
     @GET
-    public List<User> getAll(@QueryParam("sorted") String sorted,
-                             @QueryParam("pageindex") String pageIndex, @QueryParam("pagesize") String pageSize) {
+    public Response getAll(@QueryParam("sorted") String sorted,
+                           @QueryParam("pageindex") String pageIndex,
+                           @QueryParam("pagesize") String pageSize,
+                           @QueryParam("count") String count) {
+        if(count != null) {
+            return Response.ok()
+                    .entity(new UserCountResponse(repository.findAll().pageCount(),
+                            repository.count())).build();
+        }
         if(sorted != null) {
             PanacheQuery<User> query = repository.findAll(Sort.descending(sorted));
             if(pageIndex != null && pageSize != null) {
@@ -30,15 +38,9 @@ public class UserResource {
                 }catch (NumberFormatException ex) {}
             }
             List<User> list = query.list();
-            return list;
+            return Response.ok().entity(list).build();
         }
-        return repository.listAll();
-    }
-
-    @GET
-    @Path("count")
-    public UserCountResponse count() {
-        return new UserCountResponse(repository.findAll().pageCount(), repository.count());
+        return Response.ok().entity(repository.listAll()).build();
     }
 
 
