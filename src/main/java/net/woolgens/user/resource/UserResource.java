@@ -1,11 +1,13 @@
 package net.woolgens.user.resource;
 
 import io.quarkus.mongodb.panache.PanacheQuery;
-import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
 import net.woolgens.user.exception.impl.UserNotFoundException;
 import net.woolgens.user.model.User;
+import net.woolgens.user.model.dto.UserNameDto;
 import net.woolgens.user.repository.UserRepository;
+import net.woolgens.user.resource.response.UserCountResponse;
+import net.woolgens.user.service.UserService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -20,25 +22,25 @@ public class UserResource {
     @Inject
     UserRepository repository;
 
+    @Inject
+    UserService service;
+
     @GET
     public Response getAll(@QueryParam("sorted") String sorted,
                            @QueryParam("pageindex") String pageIndex,
                            @QueryParam("pagesize") String pageSize,
-                           @QueryParam("count") String count) {
+                           @QueryParam("count") String count,
+                           @QueryParam("small") String small) {
         if(count != null) {
             return Response.ok()
                     .entity(new UserCountResponse(repository.findAll().pageCount(),
                             repository.count())).build();
         }
+        if(small != null) {
+            return Response.ok().entity(service.getAllSmallProjectedUsers()).build();
+        }
         if(sorted != null) {
-            PanacheQuery<User> query = repository.findAll(Sort.descending(sorted));
-            if(pageIndex != null && pageSize != null) {
-                try {
-                    query.page(Integer.valueOf(pageIndex), Integer.valueOf(pageSize));
-                }catch (NumberFormatException ex) {}
-            }
-            List<User> list = query.list();
-            return Response.ok().entity(list).build();
+            return Response.ok().entity(service.getAllSortedAndPaged(sorted, pageIndex, pageSize)).build();
         }
         return Response.ok().entity(repository.listAll()).build();
     }

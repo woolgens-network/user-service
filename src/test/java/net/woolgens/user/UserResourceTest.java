@@ -31,6 +31,7 @@ public class UserResourceTest {
     @BeforeEach
     public void setup() {
         user = new User(UUID.randomUUID().toString());
+        user.setName("Test");
         user.setStats(new HashMap<>());
         user.getStats().put("playtime", 10000l);
         repository.persist(user);
@@ -64,6 +65,15 @@ public class UserResourceTest {
         }
         given()
                 .when().get("/?sorted=seasons.1.level&limit=2" )
+                .then()
+                .statusCode(200)
+                .body("isEmpty()", is(false));
+    }
+
+    @Test
+    public void testGetAllSmallEndpoint() {
+        given()
+                .when().get("/?small=true" )
                 .then()
                 .statusCode(200)
                 .body("isEmpty()", is(false));

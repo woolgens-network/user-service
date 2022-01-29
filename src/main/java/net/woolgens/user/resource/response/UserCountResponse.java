@@ -1,4 +1,4 @@
-package net.woolgens.user.resource;
+package net.woolgens.user.resource.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
