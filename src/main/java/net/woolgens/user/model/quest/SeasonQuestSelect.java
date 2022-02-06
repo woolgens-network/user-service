@@ -14,6 +14,7 @@ import java.util.Map;
 @Data
 public class SeasonQuestSelect {
 
+    private int state;
     private Map<String, Long> objectives;
     private long timestamp;
 }
