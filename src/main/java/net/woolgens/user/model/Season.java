@@ -27,5 +27,6 @@ public class Season {
     private Map<String, Object> extensions;
 
     private Map<String, Long> timestamps;
+    private Map<String, Home> homes;
 
 }
