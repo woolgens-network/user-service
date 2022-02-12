@@ -26,4 +26,6 @@ public class Season {
     private Map<String, Integer> crates;
     private Map<String, Object> extensions;
 
+    private Map<String, Long> timestamps;
+
 }
