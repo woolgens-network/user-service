@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.codecs.pojo.annotations.BsonId;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,6 +34,7 @@ public class User {
     private Map<String, Object> settings;
     private Map<String, Integer> booster;
     private Map<String, Object> extensions;
+    private List<Badge> badges;
     //----------------------------------------
 
     private Map<String, Season> seasons;
