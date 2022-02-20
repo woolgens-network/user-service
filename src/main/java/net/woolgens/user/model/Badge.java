@@ -13,4 +13,6 @@ public class Badge {
 
     private String title;
     private String color;
+    private String description;
+    private long received;
 }
