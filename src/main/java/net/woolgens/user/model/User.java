@@ -30,7 +30,7 @@ public class User {
     //----------------------------------------
     // Global
     private long joined;
-    private long lastJoin;
+    private long lastJoined;
     private Map<String, Long> stats;
     private Map<String, Object> settings;
     private Map<String, Integer> booster;
