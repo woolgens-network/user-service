@@ -13,6 +13,5 @@ import lombok.Data;
 @Data
 public class UserCountResponse {
 
-    private int maxPages;
     private long count;
 }

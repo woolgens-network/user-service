@@ -33,8 +33,7 @@ public class UserResource {
                            @QueryParam("small") String small) {
         if(count != null) {
             return Response.ok()
-                    .entity(new UserCountResponse(repository.findAll().pageCount(),
-                            repository.count())).build();
+                    .entity(new UserCountResponse(repository.count())).build();
         }
         if(small != null) {
             return Response.ok().entity(service.getAllSmallProjectedUsers()).build();
