@@ -18,8 +18,6 @@ steps:
           username: woolgens-default
       serverSecrets:
         from_secret: WOOLGENS_NEXUS_CREDENTIALS
-  - name: execution
-    image: maven
   - name: test
     image: maven
     depends_on: [settings, mongo]
