@@ -17,7 +17,7 @@ steps:
         - id: woolgens-network
           username: woolgens-default
       serverSecrets:
-        from_secret: MAVEN_SERVER_SECRETS
+        from_secret: WOOLGENS_NEXUS_CREDENTIALS
   - name: test
     image: maven
     depends_on: [settings, mongo]
@@ -45,10 +45,10 @@ steps:
     image: md5lukas/drone-mvn-settings
     settings:
       servers:
-        - id: woolgens-network
-          username: woolgens-default
+        - id: woolgens
+          username: woolgens
       serverSecrets:
-        from_secret: MAVEN_SERVER_SECRETS
+        from_secret: WOOLGENS_NEXUS_CREDENTIALS
   - name: install
     image: maven
     depends_on: [settings, mongo]
@@ -59,14 +59,14 @@ steps:
     image: appleboy/drone-scp
     settings:
       host:
-        from_secret: SERVER_HOST
+        from_secret: WOOLGENS_SERVER_HOST
       port:
-        from_secret: SERVER_PORT
+        from_secret: WOOLGENS_SERVER_PORT
       username:
-        from_secret: SERVER_USER
+        from_secret: WOOLGENS_SERVER_USER
       password:
-        from_secret: SERVER_PASSWORD
-      target: /home/services/revamp/user-service/app/
+        from_secret: WOOLGENS_SERVER_PASSWORD
+      target: /home/services/user-service/app/
       source: target/quarkus-app/*
       strip_components: 2
   - name: start
@@ -74,15 +74,15 @@ steps:
     image: appleboy/drone-ssh
     settings:
       host:
-        from_secret: SERVER_HOST
+        from_secret: WOOLGENS_SERVER_HOST
       port:
-        from_secret: SERVER_PORT
+        from_secret: WOOLGENS_SERVER_PORT
       username:
-        from_secret: SERVER_USER
+        from_secret: WOOLGENS_SERVER_USER
       password:
-        from_secret: SERVER_PASSWORD
+        from_secret: WOOLGENS_SERVER_PASSWORD
       script:
-        - cd /home/services/revamp/user-service/
+        - cd /home/services/user-service/
         - docker-compose down
         - docker-compose up -d --build
 
