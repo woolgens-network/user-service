@@ -71,7 +71,6 @@ steps:
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
-        - export SERVICE_NAME=$SERVICE_NAME
         - echo $${SERVICE_NAME}
         - echo $SERVICE_NAME
         - echo $$SERVICE_NAME
