@@ -71,6 +71,7 @@ steps:
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
+        - echo Yeet
         - echo $${SERVICE_NAME}
         - echo $SERVICE_NAME
         - echo $$SERVICE_NAME
