@@ -72,8 +72,11 @@ steps:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
         - export SERVICE_NAME=$SERVICE_NAME
-        - rm -R /home/services/$$SERVICE_NAME-service/
-        - cp /home/services/template/ /home/services/$$SERVICE_NAME-service/
+        - echo $${SERVICE_NAME}
+        - echo $SERVICE_NAME
+        - echo $$SERVICE_NAME
+        - rm -R /home/services/$${SERVICE_NAME}-service/
+        - cp /home/services/template/ /home/services/$${SERVICE_NAME}-service/
   - name: deploy
     depends_on: [install, delete]
     image: appleboy/drone-scp
