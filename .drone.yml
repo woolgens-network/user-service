@@ -97,10 +97,12 @@ steps:
         from_secret: WOOLGENS_SERVER_USER
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
+      envs:
+        - SERVICE_NAME
       script:
         - cd /home/services/user-service/
-        - docker-compose down
         - SERVICE_NAME=user
+        - docker-compose down
         - docker-compose up -d --build
 
 services:
