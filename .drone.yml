@@ -71,6 +71,7 @@ steps:
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
+        - export SERVICE_NAME=$${SERVICE_NAME}
         - rm -R /home/services/$SERVICE_NAME-service/
         - cp /home/services/template/ /home/services/$SERVICE_NAME-service/
   - name: deploy
@@ -101,6 +102,7 @@ steps:
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
+        - export SERVICE_NAME=$${SERVICE_NAME}
         - cd /home/services/$SERVICE_NAME-service/
         - docker-compose down
         - SERVICE_NAME=$${SERVICE_NAME} docker-compose up -d --build
