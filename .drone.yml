@@ -101,7 +101,7 @@ steps:
         - SERVICE_NAME
       script:
         - cd /home/services/user-service/
-        - export SERVICE_NAME=user
+        - export SERVICE_NAME=yeet
         - docker-compose down
         - docker-compose up -d --build
 
