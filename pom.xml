@@ -23,8 +23,8 @@
 
     <developers>
         <developer>
-            <name>NAME</name>
-            <email>E-MAIL</email>
+            <name>Maga</name>
+            <email>reapermaga@gmail.com</email>
         </developer>
     </developers>
 
@@ -42,8 +42,8 @@
 
     <repositories>
         <repository>
-            <id>woolgens-network</id>
-            <url>https://nexus.woolgens.net/repository/woolgens/</url>
+            <id>woolgens</id>
+            <url>https://nexus.prismar.in/repository/woolgens/</url>
         </repository>
     </repositories>
 
