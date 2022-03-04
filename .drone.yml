@@ -3,9 +3,6 @@ kind: pipeline
 type: docker
 name: Java maven testing
 
-environment:
-  SERVICE_NAME: user
-
 trigger:
   branch:
     - master
@@ -23,8 +20,6 @@ steps:
         from_secret: WOOLGENS_NEXUS_CREDENTIALS
   - name: execution
     image: maven
-    commands:
-      - echo $${SERVICE_NAME}
   - name: test
     image: maven
     depends_on: [settings, mongo]
@@ -42,6 +37,9 @@ services:
 kind: pipeline
 type: docker
 name: Java maven testing and server deployment
+
+environment:
+  SERVICE_NAME: user
 
 trigger:
   branch:
@@ -63,8 +61,22 @@ steps:
     depends_on: [settings, mongo]
     commands:
       - mvn -U package -s settings.xml
+  - name: delete
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: WOOLGENS_SERVER_HOST
+      port:
+        from_secret: WOOLGENS_SERVER_PORT
+      username:
+        from_secret: WOOLGENS_SERVER_USER
+      password:
+        from_secret: WOOLGENS_SERVER_PASSWORD
+      script:
+        - rm -R /home/services/$${SERVICE_NAME}-service/
+        - cp /home/services/template/ /home/services/$${SERVICE_NAME}-service/
   - name: deploy
-    depends_on: [install]
+    depends_on: [install, delete]
     image: appleboy/drone-scp
     settings:
       host:
@@ -75,7 +87,7 @@ steps:
         from_secret: WOOLGENS_SERVER_USER
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
-      target: /home/services/user-service/app/
+      target: /home/services/$${SERVICE_NAME}-service/app/
       source: target/quarkus-app/*
       strip_components: 2
   - name: start
@@ -91,7 +103,7 @@ steps:
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
-        - cd /home/services/user-service/
+        - cd /home/services/$${SERVICE_NAME}-service/
         - docker-compose down
         - docker-compose up -d --build
 
