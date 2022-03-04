@@ -71,8 +71,8 @@ steps:
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
-        - rm -R /home/services/$${SERVICE_NAME}-service/
-        - cp /home/services/template/ /home/services/$${SERVICE_NAME}-service/
+        - rm -R /home/services/$SERVICE_NAME-service/
+        - cp /home/services/template/ /home/services/$SERVICE_NAME-service/
   - name: deploy
     depends_on: [install, delete]
     image: appleboy/drone-scp
@@ -85,7 +85,7 @@ steps:
         from_secret: WOOLGENS_SERVER_USER
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
-      target: /home/services/$${SERVICE_NAME}-service/app/
+      target: /home/services/$SERVICE_NAME-service/app/
       source: target/quarkus-app/*
       strip_components: 2
   - name: start
@@ -101,7 +101,7 @@ steps:
       password:
         from_secret: WOOLGENS_SERVER_PASSWORD
       script:
-        - cd /home/services/$${SERVICE_NAME}-service/
+        - cd /home/services/$SERVICE_NAME-service/
         - docker-compose down
         - SERVICE_NAME=$${SERVICE_NAME} docker-compose up -d --build
 
