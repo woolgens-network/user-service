@@ -24,7 +24,7 @@ steps:
   - name: execution
     image: maven
     commands:
-      - echo $SERVICE_NAME
+      - echo $${SERVICE_NAME}
   - name: test
     image: maven
     depends_on: [settings, mongo]
