@@ -100,7 +100,8 @@ steps:
       script:
         - cd /home/services/user-service/
         - docker-compose down
-        - SERVICE_NAME=user docker-compose up -d --build
+        - SERVICE_NAME=user
+        - docker-compose up -d --build
 
 services:
   - name: mongo
