@@ -3,6 +3,9 @@ kind: pipeline
 type: docker
 name: Java maven testing
 
+environment:
+  SERVICE_NAME: user
+
 trigger:
   branch:
     - master
@@ -18,6 +21,10 @@ steps:
           username: woolgens-default
       serverSecrets:
         from_secret: WOOLGENS_NEXUS_CREDENTIALS
+  - name: execution
+    image: maven
+    commands:
+      - echo ${SERVICE_NAME}
   - name: test
     image: maven
     depends_on: [settings, mongo]
@@ -29,6 +36,8 @@ services:
     image: mongo:4
     ports:
       - 27017
+
+
 ---
 kind: pipeline
 type: docker
