@@ -14,8 +14,8 @@ steps:
     image: md5lukas/drone-mvn-settings
     settings:
       servers:
-        - id: woolgens-network
-          username: woolgens-default
+        - id: woolgens
+          username: woolgens
       serverSecrets:
         from_secret: WOOLGENS_NEXUS_CREDENTIALS
   - name: test
